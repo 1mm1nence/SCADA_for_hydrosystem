@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+
     'opcuaAPI.apps.OpcuaapiConfig',
+    'home.apps.HomeConfig',
+    'control.apps.ControlConfig',
 ]
 
 MIDDLEWARE = [
