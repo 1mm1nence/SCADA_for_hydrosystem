@@ -4,6 +4,5 @@ from . import views
 app_name = 'opcuaAPI'
 
 urlpatterns = [
-    path('post', views.Data.as_view(), name='post'),
-    path('', views.show_data, name='show'),
+    path('post', views.GetData.as_view(), name='get_from_device'),
 ]
