@@ -8,7 +8,7 @@ class SupervisoryControl(View):
         return render(request, "control/control_page.html", context)
 
 
-    def __get_data_from_db() -> dict:
+    def __get_data_from_db(self) -> dict:
         try:
             cyl_1 = MainCylinderStateModel.objects.get(id=1)
             cyl_2 = AuxiliaryCylinderStateModel.objects.get(id=1)

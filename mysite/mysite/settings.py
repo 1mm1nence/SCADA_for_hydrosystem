@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-a#x!@+4*#kapd-g7y5hfzd9x^45^$=td8=*r0r&o1mh1n#-3ph
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['vladslyzhuk.pythonanywhere.com']
-
+#TODO change allowed host to commented one.
+# ALLOWED_HOSTS = ['vladslyzhuk.pythonanywhere.com']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -43,7 +44,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'social_django',
     'taggit',
-    
+
 
     'opcuaAPI.apps.OpcuaapiConfig',
     'home.apps.HomeConfig',
