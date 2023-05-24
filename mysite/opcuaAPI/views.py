@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-import models
+from django.db import models
 from .models import MainCylinderStateModel, AuxiliaryCylinderStateModel
 from .serializers import MainCylinderStateSerializer, AuxiliaryCylinderStateSerializer
 
@@ -90,6 +90,6 @@ class ShareData(APIView):
             'responseCode' : status.HTTP_200_OK, 
             'data': serializer_list,
         }
-        
+
         return Response(response_content)
 
