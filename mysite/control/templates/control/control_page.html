@@ -3,12 +3,35 @@
 {% block title %}Control{% endblock %}
 
 {% block content %} 
-    X1: {{ X1 }}
-    Y1: {{ Y1 }}
-    YN1: {{ YN1 }}
+    <div id="X1">X1: {{ X1 }}</div>
+    <div id="Y1">Y1: {{ Y1 }}</div>
+    <div id="YN1">YN1: {{ YN1 }}</div>
 
-    XN2: {{ XN2 }}
-    X2: {{ X2 }}
-    Y2: {{ Y2 }}
+    <div id="XN2">XN2: {{ XN2 }}</div>
+    <div id="X2">X2: {{ X2 }}</div>
+    <div id="Y2">Y2: {{ Y2 }}</div>
+
+    <script>
+        $(document).ready(function() {
+            // Оновлення значення змінних
+            function updateVariableValue() {
+                $.get('/api/get_data_from_server/', function(data) {
+                    $('#X1').text(data.X1);
+                    $('#Y1').text(data.Y1);
+                    $('#YN1').text(data.YN1);
+                    $('#XN1').text(data.XN1);
+                    $('#X2').text(data.X2);
+                    $('#Y2').text(data.Y2);
+                });
+            }
+
+            updateVariableValue();
+
+            // Оновлюємо значення змінної через кожні 0,1 секунд (100 мс)
+            setInterval(updateVariableValue, 100);
+        });
+
+    </script>
 
 {% endblock %}
+

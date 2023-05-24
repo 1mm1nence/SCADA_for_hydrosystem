@@ -2,8 +2,10 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+import models
 from .models import MainCylinderStateModel, AuxiliaryCylinderStateModel
 from .serializers import MainCylinderStateSerializer, AuxiliaryCylinderStateSerializer
+
 
 # def show_data(request):
 #     try:
@@ -15,7 +17,12 @@ from .serializers import MainCylinderStateSerializer, AuxiliaryCylinderStateSeri
 #         'yn1': state.yn1
 #     }
 #     return render(request, 'opcuaAPI/index.html', context)
-
+def get_or_none(model: models.Model):
+    try:
+        instance = model.objects.get(id=1)
+    except model.DoesNotExist:
+        instance = None
+    return instance
 
 class GetData(APIView):
     def post(self, request):
@@ -30,15 +37,13 @@ class GetData(APIView):
         y2 = request.data.get('Y2')
 
         # Оновлення існуючих даних або створитворення екземплярів при їх відсутності.
-        try:
-            main_instance = MainCylinderStateModel.objects.get(id=1)
-        except MainCylinderStateModel.DoesNotExist:
-            main_instance = None
+        main_instance = get_or_none(MainCylinderStateModel)
+        # try:
+        #     main_instance = MainCylinderStateModel.objects.get(id=1)
+        # except MainCylinderStateModel.DoesNotExist:
+        #     main_instance = None
 
-        try:
-            auxiliary_instance = AuxiliaryCylinderStateModel.objects.get(id=1)
-        except AuxiliaryCylinderStateModel.DoesNotExist:
-            auxiliary_instance = None
+        auxiliary_instance = get_or_none(AuxiliaryCylinderStateModel)
 
         if main_instance:
             main_instance.x1 = x1
@@ -71,5 +76,20 @@ class GetData(APIView):
         return Response(response_content)
     
 
+class ShareData(APIView):
+    def get(self, request):
+        main_instance = get_or_none(MainCylinderStateModel)
+        auxiliary_instance = get_or_none(AuxiliaryCylinderStateModel)
 
+        serializer1 = MainCylinderStateSerializer(main_instance)
+        serializer2 = AuxiliaryCylinderStateSerializer(auxiliary_instance)
+        serializer_list = [serializer1.data, serializer2.data]
+
+        response_content = {
+            'status': 1, 
+            'responseCode' : status.HTTP_200_OK, 
+            'data': serializer_list,
+        }
+        
+        return Response(response_content)
 
