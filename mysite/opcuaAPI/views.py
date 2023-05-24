@@ -29,6 +29,7 @@ class GetData(APIView):
         xn2 = request.data.get('XN2')
         y2 = request.data.get('Y2')
 
+        # Оновлення існуючих даних або створитворення екземплярів при їх відсутності.
         try:
             main_instance = MainCylinderStateModel.objects.get(id=1)
         except MainCylinderStateModel.DoesNotExist:
@@ -39,7 +40,6 @@ class GetData(APIView):
         except AuxiliaryCylinderStateModel.DoesNotExist:
             auxiliary_instance = None
 
-        # Update the existing instance or create a new one if it doesn't exist
         if main_instance:
             main_instance.x1 = x1
             main_instance.x_1 = x_1
@@ -58,7 +58,7 @@ class GetData(APIView):
             auxiliary_instance = AuxiliaryCylinderStateModel.objects.create(x2=x2, xn2=xn2, y2=y2)
 
 
-        # Return a response with the serialized data for the updated/created model instance
+        # Повернення відповіді з серіалізованими даними для оновлених/створених екземплярів моделей.
         serializer1 = MainCylinderStateSerializer(main_instance)
         serializer2 = AuxiliaryCylinderStateSerializer(auxiliary_instance)
         serializer_list = [serializer1.data, serializer2.data]
