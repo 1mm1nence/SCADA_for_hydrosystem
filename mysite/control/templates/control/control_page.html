@@ -15,13 +15,13 @@
         $(document).ready(function() {
             // Оновлення значення змінних
             function updateVariableValue() {
-                $.get('/api/get_data_from_server/', function(data) {
-                    $('#X1').text(data.X1);
-                    $('#Y1').text(data.Y1);
-                    $('#YN1').text(data.YN1);
-                    $('#XN1').text(data.XN1);
-                    $('#X2').text(data.X2);
-                    $('#Y2').text(data.Y2);
+                $.get('/api/get_data_from_server', function(data) {
+                    $('#X1').text('X1:' + str(data[0].x1));
+                    $('#Y1').text('Y1:' + str(data[0].y1));
+                    $('#YN1').text('YN1:' + str(data[0].yn1));
+                    $('#XN2').text('XN2:' + str(data[1].xn2));
+                    $('#X2').text('X2:' + str(data[1].x2));
+                    $('#Y2').text('Y2:' + str(data[1].y2));
                 });
             }
 
