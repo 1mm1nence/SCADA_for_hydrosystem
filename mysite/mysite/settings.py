@@ -37,7 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
+    'crispy_forms',
+    'django_extensions',
+    'social_django',
+    'taggit',
+    
 
     'opcuaAPI.apps.OpcuaapiConfig',
     'home.apps.HomeConfig',
