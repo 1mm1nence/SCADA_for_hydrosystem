@@ -59,6 +59,7 @@ class GetData(APIView):
             auxiliary_instance.x2 = x2
             auxiliary_instance.xn2 = xn2
             auxiliary_instance.y2 = y2
+            auxiliary_instance.save()
         else:
             auxiliary_instance = AuxiliaryCylinderStateModel.objects.create(x2=x2, xn2=xn2, y2=y2)
 
