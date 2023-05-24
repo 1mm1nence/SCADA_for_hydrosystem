@@ -14,16 +14,14 @@
     <script>
         $(document).ready(function() {
             // Оновлення значення змінних
-            function updateVariableValue() {
-                $.get('/api/get_data_from_server', function(data) {
-                    $('#X1').text('X1: ' + data[0].x1.toString());
-                    $('#Y1').text('Y1: ' + data[0].y1.toString());
-                    $('#YN1').text('YN1: ' + data[0].yn1.toString());
-                    $('#XN2').text('XN2: ' + data[1].xn2.toString());
-                    $('#X2').text('X2: ' + data[1].x2.toString());
-                    $('#Y2').text('Y2: ' + data[1].y2.toString());
-                });
-            }
+            $.get('/api/get_data_from_server', function(data) {
+                $('#X1').text('X1: ' + data.data[0].x1.toString());
+                $('#Y1').text('Y1: ' + data.data[0].y1.toString());
+                $('#YN1').text('YN1: ' + data.data[0].yn1.toString());
+                $('#XN2').text('XN2: ' + data.data[1].xn2.toString());
+                $('#X2').text('X2: ' + data.data[1].x2.toString());
+                $('#Y2').text('Y2: ' + data.data[1].y2.toString());
+            });
 
             updateVariableValue();
 
