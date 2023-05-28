@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -6,17 +5,6 @@ from django.db import models
 from .models import MainCylinderStateModel, AuxiliaryCylinderStateModel
 from .serializers import MainCylinderStateSerializer, AuxiliaryCylinderStateSerializer
 
-
-# def show_data(request):
-#     try:
-#         state = StateModel.objects.get(id=1)
-#     except StateModel.DoesNotExist:
-#         return render(request, 'opcuaAPI/index.html', {'y1': 'no value', 'yn1': 'no value'})
-#     context = {
-#         'y1': state.y1,
-#         'yn1': state.yn1
-#     }
-#     return render(request, 'opcuaAPI/index.html', context)
 def get_or_none(model: models.Model):
     try:
         instance = model.objects.get(id=1)
@@ -38,11 +26,6 @@ class GetData(APIView):
 
         # Оновлення існуючих даних або створитворення екземплярів при їх відсутності.
         main_instance = get_or_none(MainCylinderStateModel)
-        # try:
-        #     main_instance = MainCylinderStateModel.objects.get(id=1)
-        # except MainCylinderStateModel.DoesNotExist:
-        #     main_instance = None
-
         auxiliary_instance = get_or_none(AuxiliaryCylinderStateModel)
 
         if main_instance:
