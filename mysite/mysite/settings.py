@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'opcuaAPI.apps.OpcuaapiConfig',
     'home.apps.HomeConfig',
     'control.apps.ControlConfig',
+    'analysis.apps.AnalysisConfig',
 ]
 
 MIDDLEWARE = [
