@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.db import models
 from .models import MainCylinderStateModel, AuxiliaryCylinderStateModel
+from analysis.models import MainStateHistory, AuxiliaryStateHistory
 from .serializers import MainCylinderStateSerializer, AuxiliaryCylinderStateSerializer
 
 def get_or_none(model: models.Model):
@@ -46,6 +47,9 @@ class GetData(APIView):
         else:
             auxiliary_instance = AuxiliaryCylinderStateModel.objects.create(x2=x2, xn2=xn2, y2=y2)
 
+        #Збереження історії для подальшого аналізу.
+        history_1 = MainStateHistory.objects.create(x_1_h=x_1, x_n1_h=x_n1, y1_h=y1, yn1_h=yn1)
+        history_2 = AuxiliaryCylinderStateModel.objects.create(x2=x2, xn2=xn2, y2=y2)
 
         # Повернення відповіді з серіалізованими даними для оновлених/створених екземплярів моделей.
         serializer1 = MainCylinderStateSerializer(main_instance)
