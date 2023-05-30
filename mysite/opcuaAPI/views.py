@@ -65,10 +65,12 @@ class ShareData(APIView):
         main_instance = get_or_none(MainCylinderStateModel)
         auxiliary_instance = get_or_none(AuxiliaryCylinderStateModel)
 
+        # Підготовка серіалізаторів для актуальних даних з циліндрів.
         serializer1 = MainCylinderStateSerializer(main_instance)
         serializer2 = AuxiliaryCylinderStateSerializer(auxiliary_instance)
         serializer_list = [serializer1.data, serializer2.data]
 
+        # Формування словнику, який надішлесться як JSON.
         response_content = {
             'status': 1, 
             'responseCode' : status.HTTP_200_OK, 
