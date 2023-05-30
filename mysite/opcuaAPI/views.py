@@ -49,7 +49,7 @@ class GetData(APIView):
 
         #Збереження історії для подальшого аналізу.
         history_1 = MainStateHistory.objects.create(x_1_h=x_1, x_n1_h=x_n1, y1_h=y1, yn1_h=yn1)
-        history_2 = AuxiliaryCylinderStateModel.objects.create(x2=x2, xn2=xn2, y2=y2)
+        history_2 = AuxiliaryStateHistory.objects.create(x2=x2, xn2=xn2, y2=y2)
 
         # Повернення відповіді з серіалізованими даними для оновлених/створених екземплярів моделей.
         serializer1 = MainCylinderStateSerializer(main_instance)
