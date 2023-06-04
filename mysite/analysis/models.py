@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 # Історія стану першого циліндра.
 class MainStateHistory(models.Model):
@@ -113,4 +114,61 @@ class AuxiliaryStateHistory(models.Model):
         else:
             self.y2_last_false = self.time
 
+        super().save(*args, **kwargs)
+
+# Стани, у яких перебуває булева змінна для автоматичної валідації екземпляру моделі.
+# Значення 8 та 9 для записування нового екземпляру у
+STATE_CHOICES = [
+    (0, "False"),
+    (1, "True"),
+    (8, "Off"),
+    (9, "On"),
+]
+
+
+class BooleanTrackBase(models.Model):
+    '''
+    Базовий клас для опису відслідковування булевої змінної.
+    '''
+
+    # Стан булевої змінної.
+    state = models.BooleanField()
+
+    # Змінна для первинного значення.
+    initial = models.BooleanField(default=False)
+
+    # Час перемикання значення.
+    time_switch = models.DateTimeField(auto_now_add=True)
+
+    # Час спрацювання.
+    time_worked = models.DurationField(null=True)
+
+    class Meta:
+        abstract = True
+    
+    def safe(self, *args, **kwargs):
+        if self.initial:
+            self.time_worked = datetime.timedelta(seconds=0)
+        else:
+            previous_record = self.__class__.objects.order_by('-time_switch').first()
+            if previous_record:
+                self.time_worked = self.time_switch - previous_record.time_switch
+            else:
+                self.time_worked = datetime.timedelta(seconds=0)
+        super().save(*args, **kwargs)
+
+class SystemStateTrack(models.Model):
+    # Стан системи (вкл/викл)
+    # Відслідковується за допомогою змінної XRUN. 
+    state = models.BooleanField()
+
+    time_switch = models.DateTimeField(auto_now_add=True)
+    time_worked = models.DurationField(null=True)
+
+    def safe(self, *args, **kwargs):
+        previous_record = SystemStateTrack.objects.order_by('-time_switch').first()
+        if previous_record:
+            self.time_worked = self.time_switch - previous_record.time_switch
+        else:
+            self.time_worked = datetime.timedelta(seconds=0)
         super().save(*args, **kwargs)
