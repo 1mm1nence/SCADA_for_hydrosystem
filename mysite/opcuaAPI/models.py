@@ -21,3 +21,15 @@ class AuxiliaryCylinderStateModel(models.Model):
 
     def __str__(self):
         return f'x2: {self.x2} | xn2: {self.xn2}, | y2: {self.y2}'
+
+class SystemStateModel(models.Model):
+    xauto = models.BooleanField()
+    xnext = models.BooleanField()
+    xpause = models.BooleanField()
+    xreset = models.BooleanField()
+    xrun = models.BooleanField()
+    xstep = models.BooleanField()
+
+
+    def __str__(self):
+        return f'xrun: {self.xrun}'
