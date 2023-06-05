@@ -7,8 +7,8 @@ from opcuaAPI.models import MainCylinderStateModel, AuxiliaryCylinderStateModel
 class SupervisoryControl(View):
     def get(self, request):
         cyl_context = self.__get_cyl_data_from_db()
-        count_context = self.__get_history_data_from_db()
-        context = cyl_context | count_context
+        # count_context = self.__get_history_data_from_db()
+        context = cyl_context # | count_context
         return render(request, "control/control_page.html", context)
 
 
