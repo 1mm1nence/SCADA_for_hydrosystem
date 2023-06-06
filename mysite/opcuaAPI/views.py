@@ -184,7 +184,12 @@ class ClearDesired(APIView):
         if desired_done:
             desired_state = DesiredStateModel.objects.get(id=1)
             desired_state.delete()
-
+            
+        response_content = {
+            'status': 1, 
+            'status_code' : status.HTTP_200_OK, 
+        }
+        return response_content
     # def post(self, request):
     #     desired_state = get_or_none(DesiredStateModel)
     #     if desired_state:
