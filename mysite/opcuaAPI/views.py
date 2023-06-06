@@ -155,14 +155,6 @@ def stop_button(request):
 
 class ShareDesired(APIView):
     def get(self, request):
-        desired_done = request.desired_done
-        if desired_done:
-            desired_state = DesiredStateModel.objects.get(id=1)
-            desired_state.delete()
-
-
-class ClearDesired(APIView):
-    def post(self, request):
         desired_state = get_or_none(DesiredStateModel)
         if desired_state:
             serializer = DesiredStateSerializer(desired_state)
@@ -174,3 +166,30 @@ class ClearDesired(APIView):
             'data': serializer,
         }
         return Response(response_content)
+    
+    # def get(self, request):
+    #     desired_done = request.desired_done
+    #     if desired_done:
+    #         desired_state = DesiredStateModel.objects.get(id=1)
+    #         desired_state.delete()
+
+
+class ClearDesired(APIView):
+    def post(self, request):
+        desired_done = request.desired_done
+        if desired_done:
+            desired_state = DesiredStateModel.objects.get(id=1)
+            desired_state.delete()
+
+    # def post(self, request):
+    #     desired_state = get_or_none(DesiredStateModel)
+    #     if desired_state:
+    #         serializer = DesiredStateSerializer(desired_state)
+    #     else:
+    #         serializer = None
+    #     response_content = {
+    #         'status': 1, 
+    #         'status_code' : status.HTTP_200_OK, 
+    #         'data': serializer,
+    #     }
+    #     return Response(response_content)
