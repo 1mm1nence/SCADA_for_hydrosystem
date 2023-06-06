@@ -112,9 +112,9 @@ class GetData(APIView):
         # Повернення відповіді з серіалізованими даними для оновлених/створених екземплярів моделей.
         serializer1 = MainCylinderStateSerializer(main_instance)
         serializer2 = AuxiliaryCylinderStateSerializer(auxiliary_instance)
-        serializer2 = SystemStateSerializer(system_instance)
+        serializer3 = SystemStateSerializer(system_instance)
 
-        serializer_list = [serializer1.data, serializer2.data, system_instance.data]
+        serializer_list = [serializer1.data, serializer2.data, serializer3.data]
         response_content = {
             'status': 1, 
             'responseCode' : status.HTTP_200_OK, 
