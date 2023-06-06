@@ -180,7 +180,7 @@ class ShareDesired(APIView):
 
 class ClearDesired(APIView):
     def post(self, request):
-        desired_done = request.desired_done
+        desired_done = request.data.get('desired_done')
         if desired_done:
             desired_state = DesiredStateModel.objects.get(id=1)
             desired_state.delete()
