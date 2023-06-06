@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from opcuaAPI.models import MainCylinderStateModel, AuxiliaryCylinderStateModel, SystemStateModel
 
@@ -65,4 +65,3 @@ class SupervisoryControl(View):
             }
         return sys_state_data
     
-

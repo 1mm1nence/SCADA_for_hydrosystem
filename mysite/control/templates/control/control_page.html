@@ -24,7 +24,8 @@
             <div id="XRESET">XRESET: {{ XRESET }} </div>
             <br><br>
 
-            <form action="/control/stop_button" method="post">
+            <form action="stop_button" method="post">
+                {% csrf_token %}
                 <button type="submit" class="big-button">STOP</button>
             </form>
 
