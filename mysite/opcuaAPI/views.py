@@ -72,6 +72,7 @@ class GetData(APIView):
             system_instance.xreset = xreset
             system_instance.xrun = xrun
             system_instance.xstep = xstep
+            system_instance.save()
         else:
             system_instance = SystemStateModel.objects.create(xauto=xauto, xnext=xnext, xpause=xpause, 
                                                             xreset=xreset, xrun=xrun, xstep=xstep)
