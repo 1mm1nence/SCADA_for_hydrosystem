@@ -3,31 +3,59 @@
 {% block title %}Control{% endblock %}
 
 {% block content %} 
-    <div id="X1">X1: {{ X1 }}</div>
-    <div id="Y1">Y1: {{ Y1 }}</div>
-    <div id="YN1">YN1: {{ YN1 }}</div>
 
-    <div id="XN2">XN2: {{ XN2 }}</div>
-    <div id="X2">X2: {{ X2 }}</div>
-    <div id="Y2">Y2: {{ Y2 }}</div>
+    <div class="container">
+        <div class="row">
+        <div class="col-sm">
+            Стан змінних:
+            <div id="X1">X1: {{ X1 }}</div>
+            <div id="Y1">Y1: {{ Y1 }}</div>
+            <div id="YN1">YN1: {{ YN1 }}</div>
 
-    <div>Count X1: {{ x_1_count }}</div>
-    <div>Count Xn1: {{ x_n1_count }}</div>
-    <div>Count Y1: {{ y1_count }}</div>
-    <div>Count Yn1: {{ yn1_count }}</div>
+            <div id="XN2">XN2: {{ XN2 }}</div>
+            <div id="X2">X2: {{ X2 }}</div>
+            <div id="Y2">Y2: {{ Y2 }}</div>
+        </div>
+        <div class="col-sm">
+            Стан системи:
+            <div id="XRUN">XRUN: {{ XRUN }}</div>
+
+            <div id="XSTOP">XSTOP: {{ XSTOP }}</div>
+            <div id="XRESET">XRESET: {{ XRESET }} </div>
+        </div>
+        <div class="col-sm">
+            Режим:
+            <div id="XAUTO">Автоматичний: {{ XAUTO }}</div>
+            <div id="XSTEP">Ручний: {{ XSTEP }} </div>
+        </div>
+        </div>
+    </div>
+
     
+
+    
+
+
+
+
 
     <script>
         $(document).ready(function() {
             // Оновлення значення змінних
             function updateVariableValue() {
                 $.get('/api/get_data_from_server', function(data) {
-                    $('#X1').text('X1: ' + data.data[0].x1.toString());
-                    $('#Y1').text('Y1: ' + data.data[0].y1.toString());
-                    $('#YN1').text('YN1: ' + data.data[0].yn1.toString());
-                    $('#XN2').text('XN2: ' + data.data[1].xn2.toString());
-                    $('#X2').text('X2: ' + data.data[1].x2.toString());
-                    $('#Y2').text('Y2: ' + data.data[1].y2.toString());
+                    $('#X1').text('X1: ' + data.data[0].x1.toString().toUpperCase());
+                    $('#Y1').text('Y1: ' + data.data[0].y1.toString().toUpperCase());
+                    $('#YN1').text('YN1: ' + data.data[0].yn1.toString().toUpperCase());
+                    $('#XN2').text('XN2: ' + data.data[1].xn2.toString().toUpperCase());
+                    $('#X2').text('X2: ' + data.data[1].x2.toString().toUpperCase());
+                    $('#Y2').text('Y2: ' + data.data[1].y2.toString().toUpperCase());
+
+                    $('#XRUN').text('XRUN: ' + data.data[2].xrun.toString().toUpperCase());
+                    $('#XSTOP').text('XSTOP: ' + data.data[2].xstop.toString().toUpperCase());
+                    $('#XRESET').text('XRESET: ' + data.data[2].xreset.toString().toUpperCase());
+                    $('#XAUTO').text('Автоматичний: ' + data.data[2].xauto.toString().toUpperCase());
+                    $('#XSTEP').text('Ручний: ' + data.data[2].xstep.toString().toUpperCase());
                 });
             }
 
