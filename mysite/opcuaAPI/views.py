@@ -162,11 +162,11 @@ class ShareDesired(APIView):
         #     serializer = DesiredStateSerializer(desired_state)
         # else:
         #     serializer = None
-        serializer_list = [serializer]
+        serializer_data = serializer.data
         response_content = {
             'status': 1, 
             'status_code' : status.HTTP_200_OK, 
-            'data': serializer_list
+            'data': serializer_data
         }
         return Response(response_content)
     
