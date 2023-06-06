@@ -2,9 +2,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.db import models
-from .models import MainCylinderStateModel, AuxiliaryCylinderStateModel, SystemStateModel
-from .serializers import MainCylinderStateSerializer, AuxiliaryCylinderStateSerializer, SystemStateSerializer
+from .models import MainCylinderStateModel, AuxiliaryCylinderStateModel, SystemStateModel, DesiredStateModel
+from .serializers import MainCylinderStateSerializer, AuxiliaryCylinderStateSerializer, SystemStateSerializer, DesiredStateSerializer
 from analysis.models import Cyl1_X1, Cyl1_XN1, Cyl1_Y1, Cyl1_YN1, Cyl2_X2, Cyl2_XN2, Cyl2_Y2, SystemStateTrack
+from django.shortcuts import redirect
 
 def get_or_none(model: models.Model):
     try:
@@ -144,3 +145,32 @@ class ShareData(APIView):
 
         return Response(response_content)
 
+def stop_button(request):
+    desired_instance = get_or_none(DesiredStateModel)
+    if desired_instance:
+            desired_instance.xpause_desired = True
+    else:
+        desired_instance = DesiredStateModel.objects.create(xpause_desired=True)
+    return redirect('control:main')
+
+class ShareDesired(APIView):
+    def get(self, request):
+        desired_done = request.desired_done
+        if desired_done:
+            desired_state = DesiredStateModel.objects.get(id=1)
+            desired_state.delete()
+
+
+class ClearDesired(APIView):
+    def post(self, request):
+        desired_state = get_or_none(DesiredStateModel)
+        if desired_state:
+            serializer = DesiredStateSerializer(desired_state)
+        else:
+            serializer = None
+        response_content = {
+            'status': 1, 
+            'status_code' : status.HTTP_200_OK, 
+            'data': serializer,
+        }
+        return Response(response_content)

@@ -6,29 +6,37 @@
 
     <div class="container">
         <div class="row">
-        <div class="col-sm">
-            Стан змінних:
+        <div class="col-sm-4">
+            <h3>Стан дачиків/актуаторів:</h3>
             <div id="X1">X1: {{ X1 }}</div>
             <div id="Y1">Y1: {{ Y1 }}</div>
             <div id="YN1">YN1: {{ YN1 }}</div>
-
+            <br>
             <div id="XN2">XN2: {{ XN2 }}</div>
             <div id="X2">X2: {{ X2 }}</div>
             <div id="Y2">Y2: {{ Y2 }}</div>
         </div>
-        <div class="col-sm">
-            Стан системи:
+        <div class="col-sm-4">
+            <h3>Стан системи:</h3>
             <div id="XRUN">XRUN: {{ XRUN }}</div>
-
-            <div id="XSTOP">XSTOP: {{ XSTOP }}</div>
+            <br>
+            <div id="XPAUSE">XSTOP: {{ XPAUSE }}</div>
             <div id="XRESET">XRESET: {{ XRESET }} </div>
+            <br><br>
+
+            <form action="/control/stop_button" method="post">
+                <button type="submit" class="big-button">STOP</button>
+            </form>
+
         </div>
-        <div class="col-sm">
-            Режим:
+        <div class="col-sm-4">
+            <h3>Режим:</h3>
             <div id="XAUTO">Автоматичний: {{ XAUTO }}</div>
             <div id="XSTEP">Ручний: {{ XSTEP }} </div>
         </div>
         </div>
+        
+        
     </div>
 
     
@@ -52,7 +60,7 @@
                     $('#Y2').text('Y2: ' + data.data[1].y2.toString().toUpperCase());
 
                     $('#XRUN').text('XRUN: ' + data.data[2].xrun.toString().toUpperCase());
-                    $('#XSTOP').text('XSTOP: ' + data.data[2].xstop.toString().toUpperCase());
+                    $('#XPAUSE').text('XPAUSE: ' + data.data[2].xpause.toString().toUpperCase());
                     $('#XRESET').text('XRESET: ' + data.data[2].xreset.toString().toUpperCase());
                     $('#XAUTO').text('Автоматичний: ' + data.data[2].xauto.toString().toUpperCase());
                     $('#XSTEP').text('Ручний: ' + data.data[2].xstep.toString().toUpperCase());

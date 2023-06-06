@@ -33,3 +33,9 @@ class SystemStateModel(models.Model):
 
     def __str__(self):
         return f'xrun: {self.xrun}'
+
+class DesiredStateModel(models.Model):
+    '''
+    Клас для опису команд, які задаються користувачем з серверу.
+    '''
+    xpause_desired = models.BooleanField()

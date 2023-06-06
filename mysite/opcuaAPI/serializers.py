@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import MainCylinderStateModel, AuxiliaryCylinderStateModel, SystemStateModel
+from .models import MainCylinderStateModel, AuxiliaryCylinderStateModel, SystemStateModel, DesiredStateModel
 
 class MainCylinderStateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,3 +15,8 @@ class SystemStateSerializer(serializers.ModelSerializer):
     class Meta:
         model = SystemStateModel
         fields = ('id', 'xauto', 'xnext', 'xpause', 'xreset', 'xrun', 'xstep')
+
+class DesiredStateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DesiredStateModel
+        fields = ('id', 'xpause_desired')
