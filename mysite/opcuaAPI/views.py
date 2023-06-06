@@ -156,10 +156,12 @@ def stop_button(request):
 class ShareDesired(APIView):
     def get(self, request):
         desired_state = get_or_none(DesiredStateModel)
-        if desired_state:
-            serializer = DesiredStateSerializer(desired_state)
-        else:
-            serializer = None
+
+        serializer = DesiredStateSerializer(desired_state)
+        # if desired_state:
+        #     serializer = DesiredStateSerializer(desired_state)
+        # else:
+        #     serializer = None
         response_content = {
             'status': 1, 
             'status_code' : status.HTTP_200_OK, 
